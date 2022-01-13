@@ -1,16 +1,32 @@
-from graphene import ObjectType, Schema, String
+from graphene import ObjectType, Schema, Field
+from graphene import ID, String, List
 
 
-class Hello(ObjectType):
+books = [
+    { "name": 'Name of the Wind', "genre": 'Fantasy', "id": '1' },
+    { "name": 'The Final Empire', "genre": 'Fantasy', "id": '2' },
+    { "name": 'The Long Earth', "genre": 'Sci-Fi', "id": '3' },
+]
 
-    hello = String(name=String(default_value="stranger"))
+class BookType(ObjectType):
+    id = ID()
+    name = String()
+    genre = String()
 
-    def resolve_hello(root, info, name):
-        return f"Hello, {name}"
+
+class RootQuery(ObjectType):
+
+    book = Field(BookType, id = ID())
+
+    def resolve_book(parent, info, id):
+        for book in books:
+            if book["id"] == id:
+                return book
+        return None
 
 
 def graphql_schema():
     schema = Schema(
-        query=Hello
+        query=RootQuery
     )
     return schema
