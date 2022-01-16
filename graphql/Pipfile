@@ -12,9 +12,9 @@ loguru = "*"
 flask-graphql = "*"
 pymongo = "*"
 fastapi = "*"
-graphene = "*"
-graphql-core = "*"
 pytest = "*"
+graphql-core = "==2.2.1"
+graphene = "==2.1.8"
 
 [dev-packages]
 
