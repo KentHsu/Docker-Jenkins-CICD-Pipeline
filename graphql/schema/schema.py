@@ -47,6 +47,8 @@ class RootQuery(ObjectType):
 
     book = Field(BookType, id=ID())
     author = Field(AuthorType, id=ID())
+    books = Field(List(BookType))
+    authors = Field(List(AuthorType))
 
     def resolve_book(parent, info, id):
         for book in books:
@@ -59,6 +61,12 @@ class RootQuery(ObjectType):
             if author["id"] == id:
                 return author
         return None
+
+    def resolve_books(parent, info):
+        return books
+
+    def resolve_authors(parent, info):
+        return authors
 
 
 def graphql_schema():
