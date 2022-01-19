@@ -1,0 +1,31 @@
+version: '3.6'
+
+
+services:
+
+  mongodb:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/mongo_admin_username
+      MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/mongo_admin_password
+      MONGO_INITDB_DATABASE: graphql
+    volumes:
+      - $PWD/mongo/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - $PWD/mongo/data:/data/db
+    networks:
+      - graphql-network
+    secrets:
+      - mongo_admin_username
+      - mongo_admin_password
+
+
+networks:
+  graphql-network:
+    external: true
+
+
+secrets:
+  mongo_admin_username:
+    file: $PWD/mongo/secrets/username
+  mongo_admin_password:
+    file: $PWD/mongo/secrets/password
