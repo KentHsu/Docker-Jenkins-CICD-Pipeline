@@ -1,7 +1,15 @@
 PYTHON=python3
 
-src_name = ./
-test_name = tests/
+src_name = ./app
+test_name = ./app/tests
+
+.PHONY: up
+up:
+	docker-compose up
+
+.PHONY: remove
+remove:
+	rm -rf ./mongo/data/*
 
 .PHONY: format
 format: 
