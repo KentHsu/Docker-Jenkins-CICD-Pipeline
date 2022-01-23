@@ -3,12 +3,11 @@ PYTHON=python3
 src_name = ./app
 test_name = ./app/tests
 
-.PHONY: up
-up:
-	docker-compose up
 
 .PHONY: remove
 remove:
+	docker container prune
+	docker rmi graphql-app
 	rm -rf ./mongo/data/*
 
 .PHONY: format

@@ -1,18 +1,15 @@
 from graphene import ObjectType, Schema, Field
 from graphene import ID, String, Int, List
+from pymongo import MongoClient
 
 
-books = [
-    {"name": "Name of the Wind", "genre": "Fantasy", "id": "1", "authorId": "1"},
-    {"name": "The Final Empire", "genre": "Fantasy", "id": "2", "authorId": "2"},
-    {"name": "The Long Earth", "genre": "Sci-Fi", "id": "3", "authorId": "3"},
-]
-
-authors = [
-    {"name": "Patrick Rothfuss", "age": 44, "id": "1"},
-    {"name": "Brandon Sanderson", "age": 42, "id": "2"},
-    {"name": "Terry Pratchett", "age": 66, "id": "3"},
-]
+mongo_client = MongoClient(
+    "mongodb://mongodb:27017",
+    username="graphql-user",
+    password="graphql-pwd",
+    authSource="graphql",
+)
+db = mongo_client["graphql"]
 
 
 class BookType(ObjectType):
@@ -22,11 +19,7 @@ class BookType(ObjectType):
     author = List(lambda: AuthorType)
 
     def resolve_author(parent, info):
-        result = []
-        for author in authors:
-            if author["id"] == parent["authorId"]:
-                result.append(author)
-        return result
+        return list(db.authors.find({"id": parent["authorId"]}))
 
 
 class AuthorType(ObjectType):
@@ -36,11 +29,7 @@ class AuthorType(ObjectType):
     books = List(BookType)
 
     def resolve_books(parent, info):
-        result = []
-        for book in books:
-            if book["authorId"] == parent["id"]:
-                result.append(book)
-        return result
+        return list(db.books.find({"authorId": parent["id"]}))
 
 
 class RootQuery(ObjectType):
@@ -51,22 +40,16 @@ class RootQuery(ObjectType):
     authors = Field(List(AuthorType))
 
     def resolve_book(parent, info, id):
-        for book in books:
-            if book["id"] == id:
-                return book
-        return None
+        return db.books.find_one({"id": id})
 
     def resolve_author(parent, info, id):
-        for author in authors:
-            if author["id"] == id:
-                return author
-        return None
+        return db.authors.find_one({"id": id})
 
     def resolve_books(parent, info):
-        return books
+        return list(db.books.find({}))
 
     def resolve_authors(parent, info):
-        return authors
+        return list(db.authors.find({}))
 
 
 def graphql_schema():

@@ -18,6 +18,18 @@ services:
       - mongo_admin_username
       - mongo_admin_password
 
+  graphql-app:
+    image: graphql-app
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_GRAPHQL_USERNAME: graphql-user
+      MONGO_GRAPHQL_PASSWORD: graphql-pwd
+    ports:
+      - 5000:5000
+    networks:
+      - graphql-network
+
 
 networks:
   graphql-network:
