@@ -1,16 +1,9 @@
 from graphene import ObjectType, Schema, Field
 from graphene import ID, String, Int, List
-from pymongo import MongoClient
+from database.mongodb import connect_to_mongodb
 
 
-mongo_client = MongoClient(
-    "mongodb://mongodb:27017",
-    username="graphql-user",
-    password="graphql-pwd",
-    authSource="graphql",
-)
-db = mongo_client["graphql"]
-
+db = connect_to_mongodb()
 
 class BookType(ObjectType):
     id = ID()

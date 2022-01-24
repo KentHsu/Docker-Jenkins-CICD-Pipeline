@@ -26,6 +26,7 @@ services:
     environment:
       MONGO_GRAPHQL_USERNAME: graphql-user
       MONGO_GRAPHQL_PASSWORD: graphql-pwd
+      MONGO_GRAPHQL_DATABASE: graphql
     ports:
       - 5000:5000
     networks:
