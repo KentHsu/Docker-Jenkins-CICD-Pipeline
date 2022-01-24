@@ -1,4 +1,4 @@
-FROM python:3.8 
+FROM python:3.9 
 
 CMD [ "pipenv", "run", "python3", "app.py", "--host", "0.0.0.0", "--port", "5000"]
 
