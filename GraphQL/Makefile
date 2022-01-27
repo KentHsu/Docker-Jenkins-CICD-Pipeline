@@ -7,7 +7,6 @@ test_name = ./app/tests
 .PHONY: remove
 remove:
 	docker container prune
-	docker rmi graphql-app
 	rm -rf ./mongo/data/*
 
 .PHONY: format
