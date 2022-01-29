@@ -4,6 +4,10 @@ src_name = ./app
 test_name = ./app/tests
 
 
+.PHONY: build
+build:
+	docker-compose -f docker-compose.yml -f docker-compose-build.yml build
+
 .PHONY: remove
 remove:
 	docker container prune
