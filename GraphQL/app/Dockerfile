@@ -1,11 +1,22 @@
-FROM python:3.9 
+FROM python:3.9-alpine as builder
 
-CMD [ "pipenv", "run", "python3", "app.py", "--host", "0.0.0.0", "--port", "5000"]
+WORKDIR /app
 
-WORKDIR /src
-COPY Pipfile .
-COPY Pipfile.lock .
+COPY Pipfile.* .
 
-RUN pip install pipenv && pipenv sync
+RUN pip install --user pipenv
+
+ENV PIPENV_VENV_IN_PROJECT=1
+
+RUN /root/.local/bin/pipenv sync
+
+
+FROM python:3.9-alpine as runtime
+
+WORKDIR /app
+
+COPY --from=builder /app/.venv ./venv
 
 COPY . .
+
+CMD [ "./venv/bin/python3", "app.py", "--host", "0.0.0.0", "--port", "5000"]
