@@ -14,9 +14,6 @@ services:
       - mongodb-data:/data/db
     networks:
       - graphql-network
-    secrets:
-      - mongo_admin_username
-      - mongo_admin_password
 
   graphql-app:
     image: graphql-app
@@ -38,11 +35,5 @@ volumes:
 
 networks:
   graphql-network:
-    external: true
 
 
-secrets:
-  mongo_admin_username:
-    file: $PWD/mongo/secrets/username
-  mongo_admin_password:
-    file: $PWD/mongo/secrets/password
