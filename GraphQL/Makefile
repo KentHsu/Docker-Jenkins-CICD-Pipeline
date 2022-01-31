@@ -4,14 +4,13 @@ src_name = ./app
 test_name = ./app/tests
 
 
-.PHONY: build
-build:
-	docker-compose -f docker-compose.yml -f docker-compose-build.yml build
+.PHONY: app
+app:
+	docker-compose -f docker-compose.yml -f docker-compose-build.yml up
 
-.PHONY: remove
-remove:
-	docker container prune
-	rm -rf ./mongo/data/*
+.PHONY: ci
+ci:
+	docker-compose -f docker-compose-ci.yml up
 
 .PHONY: format
 format: 
