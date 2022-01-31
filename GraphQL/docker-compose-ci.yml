@@ -1,0 +1,39 @@
+version: '3.8'
+
+
+services:
+
+  gogs:
+    image: gogs/gogs
+    ports:
+      - "10022:22"
+      - 10880:3000
+    volumes:
+      - gogs_data:/data
+    networks:
+      - ci-infra
+
+  jenkins:
+    image: jenkins-docker
+    build:
+      context: CI
+      dockerfile: Dockerfile
+    privileged: true
+    user: root
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - ci-infra
+
+
+networks:
+  ci-infra:
+
+
+volumes:
+  gogs_data:
+  jenkins_home:

@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    stages {
+        stage('Verify') {
+            steps {
+                dir('GraphQL') {
+                    sh 'chmod +x ./CI/scripts/00-verify.sh'
+                    sh './CI/scripts/00-verify.sh'
+                }
+            }
+        }
+        stage('Build') {
+            steps {
+                dir('GraphQL') {
+                    sh 'chmod +x ./CI/scripts/01-build.sh'
+                    sh './CI/scripts/01-build.sh'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                dir('GraphQL') {
+                    sh 'chmod +x ./CI/scripts/02-test.sh'
+                    sh './CI/scripts/02-test.sh'
+                }
+            }
+        }
+    }
+}
