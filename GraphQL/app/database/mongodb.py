@@ -8,7 +8,7 @@ def connect_to_mongodb():
     database = os.environ["MONGO_GRAPHQL_DATABASE"]
 
     mongo_client = MongoClient(
-        "mongodb://mongodb:27017",
+        "mongodb://graphql-mongodb:27017",
         username=username,
         password=password,
         authSource=database

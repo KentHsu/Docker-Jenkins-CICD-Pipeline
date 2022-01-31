@@ -2,6 +2,11 @@ version: "3.6"
 
 
 services:
+
+  graphql-mongodb:
+    build:
+      context: mongo
+      dockerfile: Dockerfile
   
   graphql-app:
     build:

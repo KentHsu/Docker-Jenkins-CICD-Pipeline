@@ -3,16 +3,15 @@ version: '3.6'
 
 services:
 
-  mongodb:
-    image: mongo
+  graphql-mongodb:
+    image: graphql-mongodb
     environment:
       MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/mongo_admin_username
       MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/mongo_admin_password
     env_file:
       - $PWD/mongo/secrets/mongodb.env
     volumes:
-      - $PWD/mongo/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
-      - $PWD/mongo/data:/data/db
+      - mongodb-data:/data/db
     networks:
       - graphql-network
     secrets:
@@ -22,7 +21,7 @@ services:
   graphql-app:
     image: graphql-app
     depends_on:
-      - mongodb
+      - graphql-mongodb
     environment:
       MONGO_GRAPHQL_USERNAME: graphql-user
       MONGO_GRAPHQL_PASSWORD: graphql-pwd
@@ -31,6 +30,10 @@ services:
       - 5000:5000
     networks:
       - graphql-network
+
+
+volumes:
+  mongodb-data:
 
 
 networks:
