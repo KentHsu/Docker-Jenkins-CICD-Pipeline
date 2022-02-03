@@ -1,5 +1,10 @@
 FROM python:3.9-alpine as builder
 
+ARG BUILD_NUMBER=0
+ARG BUILD_TAG=local
+LABEL build_number=${BUILD_NUMBER}
+LABEL build_tag=${BUILD_TAG}
+
 WORKDIR /app
 
 COPY Pipfile.* .
@@ -19,4 +24,4 @@ COPY --from=builder /app/.venv ./venv
 
 COPY . .
 
-CMD [ "./venv/bin/python3", "app.py", "--host", "0.0.0.0", "--port", "5000"]
+CMD [ "./venv/bin/python3", "app.py", "--host", "0.0.0.0", "--port", "4000"]

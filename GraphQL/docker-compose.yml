@@ -4,7 +4,7 @@ version: '3.6'
 services:
 
   graphql-mongodb:
-    image: graphql-mongodb
+    image: ${REGISTRY:-docker.io}/graphql-mongodb:${BUILD_NUMBER:-local}
     environment:
       MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/mongo_admin_username
       MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/mongo_admin_password
@@ -16,7 +16,7 @@ services:
       - graphql-network
 
   graphql-app:
-    image: graphql-app
+    image: ${REGISTRY:-docker.io}/graphql-app:${BUILD_NUMBER:-local}
     depends_on:
       - graphql-mongodb
     environment:
@@ -24,7 +24,7 @@ services:
       MONGO_GRAPHQL_PASSWORD: graphql-pwd
       MONGO_GRAPHQL_DATABASE: graphql
     ports:
-      - 5000:5000
+      - 4000:4000
     networks:
       - graphql-network
 

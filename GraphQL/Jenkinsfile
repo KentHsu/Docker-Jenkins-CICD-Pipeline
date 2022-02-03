@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        REGISTRY = "localhost:5000"
+    }
     stages {
         stage('Verify') {
             steps {
@@ -22,6 +25,14 @@ pipeline {
                 dir('GraphQL') {
                     sh 'chmod +x ./CI/scripts/02-test.sh'
                     sh './CI/scripts/02-test.sh'
+                }
+            }
+        }
+        stage('Push') {
+            steps {
+                dir('GraphQL') {
+                    sh 'chmod +x ./CI/scripts/03-push.sh'
+                    sh './CI/scripts/03-push.sh'
                 }
             }
         }

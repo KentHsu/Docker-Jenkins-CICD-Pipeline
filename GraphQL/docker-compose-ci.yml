@@ -29,6 +29,13 @@ services:
     networks:
       - ci-infra
 
+  registry:
+    image: registry:2
+    ports:
+      - 5000:5000
+    networks:
+      - ci-infra
+
 
 networks:
   ci-infra:

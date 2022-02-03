@@ -1,14 +1,23 @@
 version: "3.6"
 
 
+x-args:
+  &args
+    args:
+      BUILD_NUMBER: ${BUILD_NUMBER:-0}
+      BUILD_TAG: ${BUILD_TAG:-local}
+
+
 services:
 
   graphql-mongodb:
     build:
       context: mongo
       dockerfile: Dockerfile
+      <<: *args
   
   graphql-app:
     build:
       context: app
       dockerfile: Dockerfile
+      <<: *args
