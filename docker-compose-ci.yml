@@ -7,7 +7,7 @@ services:
     image: gogs/gogs
     ports:
       - "10022:22"
-      - 10880:3000
+      - 3000:3000
     volumes:
       - gogs_data:/data
     networks:
