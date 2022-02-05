@@ -7,9 +7,9 @@ src_dir = ./GraphQL
 app:
 	docker-compose -f docker-compose.yml -f docker-compose-build.yml up
 
-.PHONY: ci
+.PHONY: cicd
 ci:
-	docker-compose -f docker-compose-ci.yml up
+	docker-compose -f docker-compose-cicd.yml up
 
 .PHONY: format
 format: 
