@@ -12,12 +12,12 @@ services:
 
   graphql-mongodb:
     build:
-      context: mongo
+      context: GraphQL/mongo
       dockerfile: Dockerfile
       <<: *args
   
   graphql-app:
     build:
-      context: app
+      context: GraphQL/app
       dockerfile: Dockerfile
       <<: *args

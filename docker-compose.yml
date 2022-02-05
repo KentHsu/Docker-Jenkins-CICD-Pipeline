@@ -9,7 +9,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/mongo_admin_username
       MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/mongo_admin_password
     env_file:
-      - $PWD/mongo/secrets/mongodb.env
+      - $PWD/GraphQL/mongo/secrets/mongodb.env
     volumes:
       - mongodb-data:/data/db
     networks:

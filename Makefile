@@ -1,7 +1,6 @@
 PYTHON=python3
 
-src_name = ./app
-test_name = ./app/tests
+src_dir = ./GraphQL
 
 
 .PHONY: app
@@ -14,16 +13,16 @@ ci:
 
 .PHONY: format
 format: 
-	black --line-length 88 $(src_name)
+	black --line-length 88 $(src_dir)
 
 .PHONY: flake
 flake: 
-	flake8 $(src_name) \
+	flake8 $(src_dir) \
 		--max-line-length=88
 
 .PHONY: lint
 lint: 
-	pylint $(src_name)\
+	pylint $(src_dir)\
 		--disable=missing-docstring \
 		--disable=fixme \
 		--disable=no-else-return \
@@ -31,14 +30,10 @@ lint:
 
 .PHONY: type
 type: 
-	mypy $(src_name)
-
-.PHONY: test
-test: 
-	pytest $(test_name) -s --disable-pytest-warnings
+	mypy $(src_dir)
 
 .PHONY: checklist
-checklist: format flake test
+checklist: format flake
 
 .PHONY: clean
 clean:
