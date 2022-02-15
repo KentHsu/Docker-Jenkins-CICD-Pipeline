@@ -8,7 +8,7 @@ app:
 	docker-compose -f docker-compose.yml -f docker-compose-build.yml up
 
 .PHONY: cicd
-ci:
+cicd:
 	docker-compose -f docker-compose-cicd.yml up
 
 .PHONY: format
