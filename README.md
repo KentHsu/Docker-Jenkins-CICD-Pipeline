@@ -27,7 +27,7 @@ This repository contains a GraphQL backend server wrote with Python and a Jenkin
 
 ### Application Illustration
 
-![alt text](https://github.com/KentHsu/GraphQL-Docker-CICD-Pipeline/tree/master/images/GraphQL-app.png)
+![alt text](https://github.com/KentHsu/GraphQL-Docker-CICD-Pipeline/blob/master/images/GraphQL-app.png)
 
 
 ## CICD Pipeline
